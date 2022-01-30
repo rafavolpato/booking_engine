@@ -37,6 +37,8 @@ class UnitViewSet(mixins.ListModelMixin, GenericViewSet):
 
             if not check_out:
                 raise ValidationError(f"Check_out not informed")
+            check_in = check_in.replace('-', '')
+
 
         if check_out:
             try:
@@ -46,6 +48,7 @@ class UnitViewSet(mixins.ListModelMixin, GenericViewSet):
 
             if not check_in:
                 raise ValidationError(f"Check_in not informed")
+            check_out = check_out.replace('-', '')
 
         queryset = get_raw_queryset(max_price, check_in, check_out)
         return queryset

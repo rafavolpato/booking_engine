@@ -31,9 +31,8 @@ def test_get_units_max_price_50_blocked_dates(client, import_data) -> None:
     response = client.get(listing_list_url, {'max_price': 50, 'check_in': '2022-01-11', 'check_out': '2022-01-12'})
     assert response.status_code == 200
     result = response.data
-    assert len(result) == 2
+    assert len(result) == 1
     assert result[0]['id'] == 1
-    assert result[1]['id'] == 5
 
 
 def test_get_units_max_price_60_blocked_dates(client, import_data) -> None:
@@ -43,9 +42,20 @@ def test_get_units_max_price_60_blocked_dates(client, import_data) -> None:
     response = client.get(listing_list_url, {'max_price': 60, 'check_in': '2022-01-11', 'check_out': '2022-01-12'})
     assert response.status_code == 200
     result = response.data
+    assert len(result) == 1
+    assert result[0]['id'] == 1
+
+
+def test_get_units_max_price_70_blocked_dates(client, import_data) -> None:
+    """
+    Check if url returns the correct records imported based on search criteria
+    """
+    response = client.get(listing_list_url, {'max_price': 70, 'check_in': '2022-01-11', 'check_out': '2022-01-12'})
+    assert response.status_code == 200
+    result = response.data
     assert len(result) == 2
     assert result[0]['id'] == 1
-    assert result[1]['id'] == 5
+    assert result[1]['id'] == 4
 
 
 def test_get_units_max_price_200(client, import_data) -> None:
